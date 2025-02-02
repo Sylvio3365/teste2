@@ -77,27 +77,9 @@ class Engine
      * @var array<string> List of methods that can be extended in the Engine class.
      */
     private const MAPPABLE_METHODS = [
-        'start',
-        'stop',
-        'route',
-        'halt',
-        'error',
-        'notFound',
-        'render',
-        'redirect',
-        'etag',
-        'lastModified',
-        'json',
-        'jsonHalt',
-        'jsonp',
-        'post',
-        'put',
-        'patch',
-        'delete',
-        'group',
-        'getUrl',
-        'download',
-        'resource'
+        'start', 'stop', 'route', 'halt', 'error', 'notFound',
+        'render', 'redirect', 'etag', 'lastModified', 'json', 'jsonHalt', 'jsonp',
+        'post', 'put', 'patch', 'delete', 'group', 'getUrl', 'download', 'resource'
     ];
 
     /** @var array<string, mixed> Stored variables. */
@@ -425,26 +407,26 @@ class Engine
             if ($eventName === Dispatcher::FILTER_BEFORE && is_object($middleware) === true && ($middleware instanceof Closure)) {
                 $middlewareObject = $middleware;
 
-                // If the object has already been created, we can just use it if the event name exists.
+            // If the object has already been created, we can just use it if the event name exists.
             } elseif (is_object($middleware) === true) {
-                $middlewareObject = method_exists($middleware, $eventName) === true ? [$middleware, $eventName] : false;
+                $middlewareObject = method_exists($middleware, $eventName) === true ? [ $middleware, $eventName ] : false;
 
-                // If the middleware is a string, we need to create the object and then call the event.
+            // If the middleware is a string, we need to create the object and then call the event.
             } elseif (is_string($middleware) === true && method_exists($middleware, $eventName) === true) {
                 $resolvedClass = null;
 
                 // if there's a container assigned, we should use it to create the object
                 if ($this->dispatcher->mustUseContainer($middleware) === true) {
                     $resolvedClass = $this->dispatcher->resolveContainerClass($middleware, $params);
-                    // otherwise just assume it's a plain jane class, so inject the engine
-                    // just like in Dispatcher::invokeCallable()
+                // otherwise just assume it's a plain jane class, so inject the engine
+                // just like in Dispatcher::invokeCallable()
                 } elseif (class_exists($middleware) === true) {
                     $resolvedClass = new $middleware($this);
                 }
 
                 // If something was resolved, create an array callable that will be passed in later.
                 if ($resolvedClass !== null) {
-                    $middlewareObject = [$resolvedClass, $eventName];
+                    $middlewareObject = [ $resolvedClass, $eventName ];
                 }
             }
 
@@ -618,8 +600,7 @@ class Engine
      */
     public function _error(Throwable $e): void
     {
-        $msg = sprintf(
-            <<<HTML
+        $msg = sprintf(<<<HTML
             <h1>500 Internal Server Error</h1>
                 <h3>%s (%s)</h3>
                 <pre>%s</pre>

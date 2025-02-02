@@ -29,6 +29,7 @@ if(empty($app)) {
 
 // This autoloads your code in the app directory so you don't have to require_once everything
 $app->path(__DIR__ . $ds . '..' . $ds . '..');
+$app->path(__DIR__ . $ds . '..' . $ds . 'controllers');
 
 // This is where you can set some flight config variables. 
 $app->set('flight.base_url', '/admin'); // if this is in a subdirectory, you'll need to change this

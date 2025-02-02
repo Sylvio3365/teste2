@@ -18,8 +18,8 @@ class AdminController
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $db = Flight::app()->db();
-        $AdminModel = new AdminModel($db);
-        Flight::render('loginAdmin',['con',$AdminModel->verifierLogin($email,$password)]);
+        $AdminModel = new AdminModel(Flight::db());
+        $con = $AdminModel->verifierLogin($email, $password);
+        Flight::json(['con' => $con]);
     }
 }

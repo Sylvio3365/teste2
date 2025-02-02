@@ -15,13 +15,19 @@ class AdminModel
 
     public function verifierLogin($email, $mdp)
     {
-        $sql = "SELECT * FROM admin WHERE email = :email LIMIT 1";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        $admin = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if ($admin && $mdp == $admin['password']) {
-            return true;
+        try {
+            $sql = "SELECT * FROM admin WHERE email = :email LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(['email' => $email]);
+            $admin = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($admin && $mdp == $admin['password']) {
+                return true;
+            }
+            return false;
+        } catch (\PDOException $e) {
+            error_log("Erreur de connexion: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 }
