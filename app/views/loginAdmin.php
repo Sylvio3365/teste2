@@ -49,7 +49,7 @@ $base_url = Flight::app()->get('flight.base_url');
     </div>
   </section>
   <!-- End your project here-->
-
+   
   <!-- MDB -->
   <script type="text/javascript" src="<?= $base_url ?>/public/assets/admin/js/mdb.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
