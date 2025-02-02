@@ -9,3 +9,5 @@ CREATE TABLE admin (
     password VARCHAR(25) NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO admin (name, email, password) VALUES ('Sylvio', 'admin@gmail.com', 'admin');
